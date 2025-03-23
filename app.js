@@ -21,8 +21,10 @@ app.use("/api", userRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth/api", authRoutes);
 
-module.exports = app; // Export of the app object.
 
-app.listen(PORT, () => {
+
+app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });
+  
+  module.exports = app; // Export of the app object.
