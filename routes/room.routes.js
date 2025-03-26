@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const Room = require("../models/room.model");
 const fileUploader = require("../config/cloudinary.config");
+const { bookRoom } = require("../controllers/room.controller");
+const { isAuthenticated } = require("../middleware/middleware");
 
 router.get("/rooms", async (req, res, next) => {
     try {
@@ -64,4 +66,7 @@ router.get("/rooms", async (req, res, next) => {
    
     res.json({ secure_url: req.files.path });
   });
+
+  router.post("/book",isAuthenticated, bookRoom);
+  
   module.exports = router;
