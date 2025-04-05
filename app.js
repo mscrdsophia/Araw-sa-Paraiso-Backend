@@ -24,7 +24,7 @@ app.use("/auth/api", authRoutes);
 
 
 app.listen(process.env.PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+    console.log(`Server listening on port ${process.env.PORT}`);
   });
   
   module.exports = app; // Export of the app object.
