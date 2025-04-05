@@ -5,7 +5,6 @@ require("./cron/index")
 
 const express = require("express"); 
 const app = express(); 
-const PORT = 5005;
 require("./config")(app); // middlewares and config
 
 // app.use(express.json())
