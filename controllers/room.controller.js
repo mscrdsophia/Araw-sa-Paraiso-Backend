@@ -9,7 +9,7 @@ const bookRoom = async (req, res) => {
 console.log(req.body);
 console.log(userId);
   try {
-    const { roomId, checkinDate, checkoutDate, request} = req.body;
+    const { roomId, checkinDate, checkoutDate, request, adultGuest, childrenGuest} = req.body;
     const newCheckin = new Date(checkinDate);
     const newCheckout = new Date(checkoutDate);
 
@@ -51,15 +51,18 @@ console.log(userId);
       },
       { new: true, session }
     );
+    console.log("updatedRoom", updatedRoom);
     const createBooking = await Booking.create(
       {
         roomId,
         userId,
         request,
+        adultGuest, 
+        childrenGuest,
         checkinDate: newCheckin,
         checkoutDate: newCheckout,
       });
-
+console.log("createBooking", createBooking);
     await session.commitTransaction();
     res.status(200).json(updatedRoom);
   } catch (error) {

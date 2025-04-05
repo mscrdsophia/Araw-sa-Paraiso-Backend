@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const Booking = require("../models/booking.model");
 
+const {bookRoom} = require("../controllers/room.controller");
+
 router.get("/bookings", async (req, res, next) => {
     try {
       const bookings = await Booking.find();
@@ -10,16 +12,18 @@ router.get("/bookings", async (req, res, next) => {
     }
   });
   
-  router.post("/bookings", async (req, res, next) => {
-    try {
-      console.log(req.body);
-      const booking = await Booking.create(req.body);
-      res.json(booking);
-    }
-    catch (error) {
-      console.error(error);
-    }
-  })
+  // router.post("/bookings", async (req, res, next) => {
+  //   try {
+  //     console.log(req.body);
+  //     const booking = await Booking.create(req.body);
+  //     res.json(booking);
+  //   }
+  //   catch (error) {
+  //     console.error(error);
+  //   }
+  // })
+
+  router.post("/bookings", bookRoom);
   
   router.put("/bookings/:id", async (req, res, next) => {
     try {
