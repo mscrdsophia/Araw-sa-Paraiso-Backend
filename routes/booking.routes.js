@@ -12,6 +12,7 @@ router.get("/bookings", async (req, res, next) => {
   
   router.post("/bookings", async (req, res, next) => {
     try {
+      console.log(req.body);
       const booking = await Booking.create(req.body);
       res.json(booking);
     }

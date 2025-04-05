@@ -5,6 +5,7 @@ const roomSchema = new Schema({
     roomType:{ type: String, required: true },
     roomPrice:{ type: Number, required: true },
     roomDescription:{ type: String, required: true },
+    shortDescription:{ type: String, required: true },
     image:[ String ],
     maxGuest:{ type: Number, required: true },
     isAvailable:{ type: Boolean, default:true },
