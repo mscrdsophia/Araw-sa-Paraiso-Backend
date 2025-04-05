@@ -3,6 +3,7 @@ require("./database"); // database connection
 // require("./config")(app); // middlewares and config
 require("./cron/index")
 
+const isAuthenticated = require("./middleware/middleware");
 const express = require("express"); 
 const app = express(); 
 require("./config")(app); // middlewares and config
@@ -11,7 +12,7 @@ require("./config")(app); // middlewares and config
 // app.use(express.urlencoded({ extended: true }));
 
 const bookingRoutes = require("./routes/booking.routes");
-app.use("/api", bookingRoutes);
+app.use("/api",isAuthenticated, bookingRoutes);
 const roomRoutes = require("./routes/room.routes");
 app.use("/api", roomRoutes);
 const reviewRoutes = require("./routes/reviews.routes");
