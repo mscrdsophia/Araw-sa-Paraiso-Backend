@@ -11,8 +11,7 @@ require("./config")(app); // middlewares and config
 // app.use(express.json())
 // app.use(express.urlencoded({ extended: true }));
 
-const bookingRoutes = require("./routes/booking.routes");
-app.use("/api",isAuthenticated, bookingRoutes);
+
 const roomRoutes = require("./routes/room.routes");
 app.use("/api", roomRoutes);
 const reviewRoutes = require("./routes/reviews.routes");
@@ -21,7 +20,8 @@ const userRoutes = require("./routes/user.routes");
 app.use("/api", userRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth/api", authRoutes);
-
+const bookingRoutes = require("./routes/booking.routes");
+app.use("/api",isAuthenticated, bookingRoutes);
 
 
 app.listen(process.env.PORT, () => {
