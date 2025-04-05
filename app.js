@@ -3,7 +3,7 @@ require("./database"); // database connection
 // require("./config")(app); // middlewares and config
 require("./cron/index")
 
-const isAuthenticated = require("./middleware/middleware");
+const {isAuthenticated} = require("./middleware/middleware");
 const express = require("express"); 
 const app = express(); 
 require("./config")(app); // middlewares and config
