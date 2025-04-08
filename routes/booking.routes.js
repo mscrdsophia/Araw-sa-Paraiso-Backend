@@ -62,7 +62,6 @@ router.get("/bookings", async (req, res, next) => {
       }
 
       const bookings = await Booking.find({ userId })
-      .populate("roomName")
       console.log("Bookings found:", bookings); // Log the bookings
 
       if (!bookings.length) {
