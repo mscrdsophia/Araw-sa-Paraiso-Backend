@@ -52,20 +52,17 @@ router.get("/bookings", async (req, res, next) => {
 
   router.get('/bookings/user/:userId', async (req, res) => {
     try {
-      console.log("Request received for /bookings/user/:userId");
-      console.log("Request params:", req.params); // Log request parameters
-
+      
       const { userId } = req.params;
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         console.log("Invalid user ID format");
         return res.status(400).json({ message: "Invalid user ID format" });
       }
 
-      const bookings = await Booking.find({ userId })
-      console.log("Bookings found:", bookings); // Log the bookings
+      const bookings = await Booking.find({ userId }).populate("roomId", "roomName");
+     
 
       if (!bookings.length) {
-        console.log("No bookings found for this user");
         return res.status(404).json({ message: "No bookings found for this user" });
       }
 
