@@ -52,15 +52,13 @@ router.get("/bookings", async (req, res, next) => {
 
   router.get('/bookings/user/:userId', async (req, res) => {
     try {
-      
       const { userId } = req.params;
       if (!mongoose.Types.ObjectId.isValid(userId)) {
-        console.log("Invalid user ID format");
         return res.status(400).json({ message: "Invalid user ID format" });
       }
 
       const bookings = await Booking.find({ userId }).populate("roomId", "roomName");
-     
+      console.log("Populated bookings:", bookings); // Debug populated data
 
       if (!bookings.length) {
         return res.status(404).json({ message: "No bookings found for this user" });
