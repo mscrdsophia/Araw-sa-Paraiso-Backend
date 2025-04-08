@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Booking = require("../models/booking.model");
+const mongoose = require("mongoose");
 
 const {bookRoom} = require("../controllers/room.controller");
 
@@ -55,14 +56,17 @@ router.get("/bookings", async (req, res, next) => {
       console.log("Request params:", req.params); // Log request parameters
 
       const { userId } = req.params;
-      if (!userId) {
-        return res.status(400).json({ message: "User ID is required" });
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+        console.log("Invalid user ID format");
+        return res.status(400).json({ message: "Invalid user ID format" });
       }
 
-      const bookings = await Booking.find({ userId });
+      const bookings = await Booking.find({ userId })
+      .populate("roomName")
       console.log("Bookings found:", bookings); // Log the bookings
 
       if (!bookings.length) {
+        console.log("No bookings found for this user");
         return res.status(404).json({ message: "No bookings found for this user" });
       }
 
