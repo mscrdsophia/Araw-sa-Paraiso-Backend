@@ -12,16 +12,7 @@ router.get("/bookings", async (req, res, next) => {
     }
   });
   
-  // router.post("/bookings", async (req, res, next) => {
-  //   try {
-  //     console.log(req.body);
-  //     const booking = await Booking.create(req.body);
-  //     res.json(booking);
-  //   }
-  //   catch (error) {
-  //     console.error(error);
-  //   }
-  // })
+ 
 
   router.post("/bookings", bookRoom);
   
@@ -57,4 +48,29 @@ router.get("/bookings", async (req, res, next) => {
       console.error(error);
     }
   });
+
+  router.get('/bookings/user/:userId', async (req, res) => {
+    try {
+      console.log("Request received for /bookings/user/:userId");
+      console.log("Request params:", req.params); // Log request parameters
+
+      const { userId } = req.params;
+      if (!userId) {
+        return res.status(400).json({ message: "User ID is required" });
+      }
+
+      const bookings = await Booking.find({ userId });
+      console.log("Bookings found:", bookings); // Log the bookings
+
+      if (!bookings.length) {
+        return res.status(404).json({ message: "No bookings found for this user" });
+      }
+
+      res.json(bookings);
+    } catch (err) {
+      console.error("Error fetching bookings:", err); // Log the error
+      res.status(500).json({ message: "Error fetching bookings" });
+    }
+  });
+
   module.exports = router;
