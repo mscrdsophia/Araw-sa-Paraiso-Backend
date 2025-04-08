@@ -36,21 +36,7 @@ router.get("/bookings", async (req, res, next) => {
       }
   })
 
-  router.get("/bookings/:id", async (req, res) => {
-    try {
-      // user {} or null
-      const booking = await Booking.findById(req.params.id);
-      if (!booking) {
-        return res.status(404).json({ message: "Booking not found" });
-      } else {
-        res.json(booking);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  router.get('/bookings/user/:userId', async (req, res) => {
+   router.get('/bookings/user/:userId', async (req, res) => {
     try {
       const { userId } = req.params;
       if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -70,5 +56,21 @@ router.get("/bookings", async (req, res, next) => {
       res.status(500).json({ message: "Error fetching bookings" });
     }
   });
+  
+  router.get("/bookings/:id", async (req, res) => {
+    try {
+      // user {} or null
+      const booking = await Booking.findById(req.params.id);
+      if (!booking) {
+        return res.status(404).json({ message: "Booking not found" });
+      } else {
+        res.json(booking);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+ 
 
   module.exports = router;
