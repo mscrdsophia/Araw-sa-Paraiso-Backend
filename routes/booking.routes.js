@@ -44,7 +44,6 @@ router.get("/bookings", async (req, res, next) => {
       }
 
       const bookings = await Booking.find({ userId }).populate("roomId", "roomName");
-      console.log("Populated bookings:", bookings); // Debug populated data
 
       if (!bookings.length) {
         return res.status(404).json({ message: "No bookings found for this user" });
